@@ -4,9 +4,9 @@ This repo shows how to use an artifitial neural network to classify falls. In or
 
 The relevant information about this data si listed below:
 
-* [17 Volunteers × Avg. 5 repetitions × 36 Movements]
-* [36 Movements including 20 Falls and 16 Daily Living Activities 5 Sensors each includes 3 axis Accelerometer, Gyroscope and Magnetometer.]
-* [Attribute Information: Xsens MTw Motion Tracking Kit]
+* 17 Volunteers × Avg. 5 repetitions × 36 Movements
+* 36 Movements including 20 Falls and 16 Daily Living Activities 5 Sensors each includes 3 axis Accelerometer, Gyroscope and Magnetometer.
+* Attribute Information: Xsens MTw Motion Tracking Kit
 
 ## Technologies
 
