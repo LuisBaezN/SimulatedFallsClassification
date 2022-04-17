@@ -1,5 +1,3 @@
-pip install numpy
-
 print(tf.__version__)
 print(tf.config.list_physical_devices('GPU'))
 nvcc --version

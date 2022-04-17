@@ -1,8 +1,10 @@
+from gc import callbacks
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 def norm(x, min, max):
@@ -10,12 +12,13 @@ def norm(x, min, max):
     s_scaled = x_std*(1 - 0) + 0
     return s_scaled
 
-def build_model():
+def build_model(in_shape):
+    neurons=[300,150,70,1]
     model = keras.Sequential([
-        layers.Dense(300, activation="relu", input_shape=[270]),
-        layers.Dense(150, activation="relu"),
-        layers.Dense(70, activation="relu"),
-        layers.Dense(1, activation="sigmoid")
+        layers.Dense(neurons[0], activation="relu", input_shape=[in_shape]),
+        layers.Dense(neurons[1], activation="relu"),
+        layers.Dense(neurons[2], activation="relu"),
+        layers.Dense(neurons[3], activation="sigmoid")
     ])
 
     optimizer = tf.keras.optimizers.RMSprop(0.001)
@@ -24,6 +27,31 @@ def build_model():
                     optimizer=optimizer,
                     metrics=['mae', 'mse'])
     return model
+
+def plot_history(history):
+  hist = pd.DataFrame(history.history)
+  hist['epoch'] = history.epoch
+
+  plt.figure()
+  plt.xlabel('Epoch')
+  plt.ylabel('Mean Abs Error [MPG]')
+  plt.plot(hist['epoch'], hist['mae'],
+           label='Train Error')
+  plt.plot(hist['epoch'], hist['val_mae'],
+           label = 'Val Error')
+  plt.ylim([0,5])
+  plt.legend()
+
+  plt.figure()
+  plt.xlabel('Epoch')
+  plt.ylabel('Mean Square Error [$MPG^2$]')
+  plt.plot(hist['epoch'], hist['mse'],
+           label='Train Error')
+  plt.plot(hist['epoch'], hist['val_mse'],
+           label = 'Val Error')
+  plt.ylim([0,20])
+  plt.legend()
+  plt.show()
 
 if __name__ == "__main__":
 
@@ -79,7 +107,7 @@ if __name__ == "__main__":
     
     #///////////////////////// Regression Model //////////////////////
 
-    model = build_model()
+    model = build_model(data_ent_norm.shape[1])
 
     model.summary()
 
@@ -88,11 +116,14 @@ if __name__ == "__main__":
     example_result = model.predict(example_batch)
     print(example_result)
 
-    epocas = 7    
+    epocas = 17    
 
-    history = model.fit(
+    early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
+
+    training_h = model.fit(
         data_ent_norm, lab_ent,
-        epochs=epocas, validation_split = 0.2, verbose=1)
+        epochs=epocas, validation_split = 0.2, verbose=1,
+        callbacks=[early_stop])
 
     #//////////////////////////// Results /////////////////////////////
 
@@ -100,3 +131,7 @@ if __name__ == "__main__":
 
     print(valid_predictions)
     print(lab_val)
+
+    #/////////////////////////// Training history /////////////////////
+
+    plot_history(training_h)
