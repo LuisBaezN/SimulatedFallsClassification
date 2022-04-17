@@ -12,9 +12,9 @@ The relevant information about this data si listed below:
 
 We used the following languages to build the solution:
 
-* [R]
-* [Python]
-* [Tensorflow]
+* R
+* Python
+* Tensorflow
 
 Further information about the versions is included in the environment file.
 
