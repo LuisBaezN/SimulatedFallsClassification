@@ -1,0 +1,16 @@
+pip install numpy
+
+print(tf.__version__)
+print(tf.config.list_physical_devices('GPU'))
+nvcc --version
+nvidia-smi
+
+conda list
+conda env list
+
+conda env remove -n [env name]
+
+conda env export --from-history > environment.yml
+
+pip install matplotlib
+

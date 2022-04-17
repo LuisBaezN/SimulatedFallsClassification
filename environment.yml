@@ -1,0 +1,6 @@
+name: tf
+channels:
+  - defaults
+dependencies:
+  - tensorflow-gpu
+prefix: C:\Users\etern\miniconda3\envs\tf
