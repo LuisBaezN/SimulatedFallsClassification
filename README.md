@@ -23,3 +23,8 @@ Further information about the versions is included in the environment file.
 To extract the raw data from the data set an algorithm was implemented in R. This algorithm just extract two classes, and clean the data. So, tu run this example, firs run the Fall_Deep file to extract the data, and then, run ann file to build and predict.
 
 The architecture of the artifitial neural network is : 300/150/70/1, with a sigmoid function at the end of the net. 
+
+
+## Paper
+
+You can consult the results of this model in this [link](https://link.springer.com/chapter/10.1007/978-3-030-37386-3_9 "Springer")
